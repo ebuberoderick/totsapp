@@ -1,17 +1,20 @@
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import React from "react";
 import { TouchableOpacity } from "react-native";
 import { Text, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { SignOut } from "../../hooks/Auth";
 import { useDispatch } from "react-redux";
+import AppLayout from "../../components/layout/AppLayout";
+import HomePreloader from "../../components/perloader/HomePreloader";
 
 export default function Page() {
   return (
-    <View className="flex flex-1 dark:bg-black bg-white">
-      <Header />
+    <AppLayout>
       <Content />
-    </View>
+      {/* <ScrollView className="px-3" indicatorStyle="white">
+        <HomePreloader />
+      </ScrollView> */}
+    </AppLayout>
   );
 }
 
@@ -43,39 +46,6 @@ function Content() {
               <Text className="text-white">Logout</Text>
             </TouchableOpacity>
           </View>
-        </View>
-      </View>
-    </View>
-  );
-}
-
-function Header() {
-  const { top } = useSafeAreaInsets();
-  return (
-    <View style={{ paddingTop: top }}>
-      <View className="px-4 lg:px-6 h-14 flex items-center flex-row justify-between ">
-        <Link className="font-bold flex-1 dark:text-white items-center justify-center" href="/">
-          ACME
-        </Link>
-        <View className="flex flex-row gap-4 sm:gap-6">
-          <Link
-            className="text-md dark:text-white font-medium hover:underline web:underline-offset-4"
-            href="/"
-          >
-            About
-          </Link>
-          <Link
-            className="text-md dark:text-white font-medium hover:underline web:underline-offset-4"
-            href="/"
-          >
-            Product
-          </Link>
-          <Link
-            className="text-md dark:text-white font-medium hover:underline web:underline-offset-4"
-            href="/"
-          >
-            Pricing
-          </Link>
         </View>
       </View>
     </View>

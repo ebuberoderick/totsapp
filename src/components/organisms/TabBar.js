@@ -25,9 +25,7 @@ const TabBar = ({ state, navigation, descriptors }) => {
                 return isFocused ? <Ionicons name="chatbubble-ellipses" size={28} color="#3591FC" /> : <Ionicons name="chatbubble-ellipses-outline" size={30} color="#000" />;
                 break
             case "profile":
-                return (
-                    <View className="w-8 h-8 bg-gray-300 rounded-full"></View>
-                )
+                return <View className={`w-8 h-8 rounded-full ${isFocused ? "bg-[#3591FC]": "bg-gray-500"}`}></View>
                 break
             default:
                 break;
@@ -36,7 +34,7 @@ const TabBar = ({ state, navigation, descriptors }) => {
 
 
     return (
-        <BlurView experimentalBlurMethod='dimezisBlurView' intensity={40} className="absolute bottom-4 overflow-hidden mx-4 rounded-3xl flex-row">
+        <BlurView experimentalBlurMethod='dimezisBlurView' intensity={40} className="absolute bottom-6 overflow-hidden mx-4 rounded-3xl flex-row">
             {state.routes.map((route, index) => {
                 const { options } = descriptors[route.key];
                 const label =
