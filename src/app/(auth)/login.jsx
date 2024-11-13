@@ -1,4 +1,4 @@
-import { View, Text} from 'react-native'
+import { View, Text } from 'react-native'
 import React, { useState } from 'react'
 import AppInput from '../../components/organisms/AppInput'
 import Ionicons from "react-native-vector-icons/Ionicons"
@@ -51,19 +51,22 @@ const Login = () => {
       </View>
       <View className="gap-7 px-3">
         <Text className="text-3xl dark:text-white font-extrabold">Login</Text>
-        <View className="gap-5">
-          <AppInput error={formHandler.error?.email} onChange={e => formHandler.value.email = e} icon={<EvilIcons name="user" size={35} color={"#9ca3af"} />} placeholder={"Email"} />
-          <AppInput error={formHandler.error?.password} onChange={e => formHandler.value.password = e} icon={<Ionicons name="lock-open-outline" size={25} color={"#9ca3af"} />} placeholder={"Password"} type={"password"} />
-          <View className="flex-row">
-            <View className="flex-row gap-2 items-center flex-grow">
-              <View className="">
-                <Checkbox value={isSelected} onValueChange={setSelection} color={isSelected && '#2877F2'} />
+        <View>
+          <Text className="text-danger text-sm">{formError}</Text>
+          <View className="gap-5">
+            <AppInput error={formHandler.error?.email} onChange={e => formHandler.value.email = e} icon={<EvilIcons name="user" size={35} color={"#9ca3af"} />} placeholder={"Email"} />
+            <AppInput error={formHandler.error?.password} onChange={e => formHandler.value.password = e} icon={<Ionicons name="lock-open-outline" size={25} color={"#9ca3af"} />} placeholder={"Password"} type={"password"} />
+            <View className="flex-row">
+              <View className="flex-row gap-2 items-center flex-grow">
+                <View className="">
+                  <Checkbox value={isSelected} onValueChange={setSelection} color={isSelected && '#2877F2'} />
+                </View>
+                <Text className="text-xl dark:text-white">Remember me</Text>
               </View>
-              <Text className="text-xl dark:text-white">Remember me</Text>
+              <Link href="forget-password" className='dark:text-white'>Forget password?</Link>
             </View>
-            <Link href="forget-password" className='dark:text-white'>Forget password?</Link>
-          </View>
 
+          </View>
         </View>
         <View className="gap-4">
           <Button processing={formHandler.proccessing} text="create account" onPress={() => formHandler.submit()} />

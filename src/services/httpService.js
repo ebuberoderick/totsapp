@@ -47,7 +47,6 @@ export const getErrorResponse = (error) => {
   if (error.response.status === 401) {
     
   }
-  
   return {
     status: false,
     data: error?.response?.data,

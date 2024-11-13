@@ -53,7 +53,6 @@ function UseFormHandler(props) {
         let err = await validator()
         if (err.length <= 0) {
             setProccessing(true)
-            // await formInfo()
             await props.onSubmit(value)
             setProccessing(false)
             return;

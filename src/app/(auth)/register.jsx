@@ -38,6 +38,7 @@ const Register = () => {
 
             if (value.password === value.cpassword) {
                 if (isSelected) {
+                    // Appregister
                     dispatch(updateAppState({ location: "/(auth)/location" }))
                     router.replace("/(auth)/location")
                 } else {
