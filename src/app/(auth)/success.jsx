@@ -10,9 +10,9 @@ const ForgotPassword = () => {
 
     return (
         <View className="flex-1 bg-white pb-16 gap-3 justify-center">
-            <View className="flex-grow items-center gap-6 justify-center">
+            <View className="flex-grow items-center justify-center">
                 <AntDesign name="checkcircle" color="#2877F2" size={120} />
-                <View>
+                <View className="pt-6">
                     <Text className="text-3xl font-extrabold text-center">Success</Text>
                     <Text className="text-center">Password reset is successful</Text>
                 </View>
