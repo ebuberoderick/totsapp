@@ -35,15 +35,14 @@ const Register = () => {
         },
 
         onSubmit: async (value) => {
+
             if (value.password === value.cpassword) {
-                // const { status, data } = await Applogin(value).catch(err => console.log(err))
-                // if (status) {
-                //     SignInAuth(data, dispatch);
-                dispatch(updateAppState({ location: "/(auth)/location" }))
-                router.replace("/(auth)/location")
-                // } else {
-                //     setFormError(data.message);
-                // }
+                if (isSelected) {
+                    dispatch(updateAppState({ location: "/(auth)/location" }))
+                    router.replace("/(auth)/location")
+                } else {
+                    formHandler.setError((prevState) => ({ ...prevState, tnc: 'Please accept Term of Service and Privacy Policy' }))
+                }
             } else {
                 formHandler.setError((prevState) => ({ ...prevState, cpassword: 'Password Mis-match' }))
             }
@@ -62,18 +61,21 @@ const Register = () => {
                         <Text className="text-xl">Welcome aboard! Just a few steps to set up your account.</Text>
                     </View>
                     <View className="gap-5">
-                        <AppInput error={formHandler.error?.firstname} onChange={e => formHandler.value.firstname = e} icon={<EvilIcons name="user" size={35} color={"#9ca3af"} />} placeholder={"First Name"} />
-                        <AppInput error={formHandler.error?.lastname} onChange={e => formHandler.value.lastname = e} icon={<EvilIcons name="user" size={35} color={"#9ca3af"} />} placeholder={"Last Name"} />
-                        <AppInput error={formHandler.error?.username} onChange={e => formHandler.value.username = e} icon={<EvilIcons name="user" size={35} color={"#9ca3af"} />} placeholder={"Username"} />
+                        <AppInput error={formHandler.error?.firstname} onChange={e => formHandler.value.firstname = e} icon={<EvilIcons name="user" size={30} color={"#9ca3af"} />} placeholder={"First Name"} />
+                        <AppInput error={formHandler.error?.lastname} onChange={e => formHandler.value.lastname = e} icon={<EvilIcons name="user" size={30} color={"#9ca3af"} />} placeholder={"Last Name"} />
+                        <AppInput error={formHandler.error?.username} onChange={e => formHandler.value.username = e} icon={<Ionicons name="at" size={25} color={"#9ca3af"} />} placeholder={"Username"} />
                         <AppInput error={formHandler.error?.email} onChange={e => formHandler.value.email = e} icon={<Feather name="mail" size={20} color={"#9ca3af"} />} placeholder={"Email"} />
                         <AppInput error={formHandler.error?.password} onChange={e => formHandler.value.password = e} icon={<Ionicons name="lock-open-outline" size={25} color={"#9ca3af"} />} placeholder={"Password"} type={"password"} />
                         <AppInput error={formHandler.error?.cpassword} onChange={e => formHandler.value.cpassword = e} icon={<Ionicons name="lock-open-outline" size={25} color={"#9ca3af"} />} placeholder={"Confirm Password"} type={"password"} />
-                        <View className="flex-row justify-start gap-2 pr-5">
-                            <View className="relative top-1">
-                                <Checkbox value={isSelected} onValueChange={setSelection} color={isSelected && '#2877F2'} />
-                            </View>
-                            <View className="">
-                                <Text className="text-lg relative bottom-1">By signing up, you agree to our <Link href="/" className='text-blue'>Terms of Service</Link> and <Link href="/" className='text-blue'>Privacy Policy?</Link></Text>
+                        <View>
+                            <Text className="text-danger text-sm">{formHandler.error?.tnc}</Text>
+                            <View className="flex-row justify-start gap-2 pr-5">
+                                <View className="relative top-1">
+                                    <Checkbox value={isSelected} onValueChange={setSelection} color={isSelected && '#2877F2'} />
+                                </View>
+                                <View className="">
+                                    <Text className="text-lg relative bottom-1">By signing up, you agree to our <Link href="/" className='text-blue'>Terms of Service</Link> and <Link href="/" className='text-blue'>Privacy Policy?</Link></Text>
+                                </View>
                             </View>
                         </View>
                     </View>
