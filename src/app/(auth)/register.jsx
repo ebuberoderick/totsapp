@@ -54,7 +54,7 @@ const Register = () => {
 
 
     return (
-        <View className="flex-1 pb-16 pt-20 gap-3 justify-center">
+        <View className="flex-1 bg-white pb-16 pt-20 gap-3 justify-center">
             <View className="gap-7 px-3 flex-1">
                 <View className="gap-20 justify-center flex-grow">
                     <View>

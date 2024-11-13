@@ -7,6 +7,7 @@ import Button from '../../components/organisms/Button'
 import { useRouter } from 'expo-router'
 import UseFormHandler from '../../hooks/useFormHandler'
 import { useDispatch } from 'react-redux'
+import { updateAppState } from '../../Store/reducers/AppDefault'
 
 const Location = () => {
 
@@ -43,10 +44,10 @@ const Location = () => {
 
 
     return (
-        <View className="flex-1 pb-16 gap-3 justify-center">
+        <View className="flex-1 bg-white pb-16 gap-3 justify-center">
             <View className="flex-grow justify-center">
                 <View>
-                    <Animated.Image source={require("../../assets/images/location.png")} className="w-80 duration-1000 animate-bounce mx-auto relative top-12 h-96" />
+                    <Animated.Image source={require("../../assets/images/location.png")} className="w-80 mx-auto relative h-96" />
                 </View>
             </View>
             <View className="gap-7 px-3">

@@ -46,7 +46,7 @@ const Login = () => {
 
 
   return (
-    <View className="flex-1 pb-16 gap-3 justify-center">
+    <View className="flex-1 bg-white pb-16 gap-3 justify-center">
       <View className="flex-grow justify-center">
         <Image source={require("../../assets/images/loginImage.png")} className="w-full relative top-12 h-2/3" />
       </View>
