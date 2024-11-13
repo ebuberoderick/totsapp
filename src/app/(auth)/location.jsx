@@ -1,5 +1,5 @@
-import { View, Text, Image, Animated } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, Animated } from 'react-native'
+import React from 'react'
 import AppInput from '../../components/organisms/AppInput'
 import Ionicons from "react-native-vector-icons/Ionicons"
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"

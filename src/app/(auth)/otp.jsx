@@ -1,5 +1,5 @@
-import { View, Text, Image, Animated } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, Animated } from 'react-native'
+import React from 'react'
 import AppInput from '../../components/organisms/AppInput'
 import Feather from 'react-native-vector-icons/Feather'
 import FontAwesome from "react-native-vector-icons/FontAwesome"
@@ -8,7 +8,7 @@ import { useRouter } from 'expo-router'
 import UseFormHandler from '../../hooks/useFormHandler'
 import { TouchableOpacity } from 'react-native'
 
-const ForgotPassword = () => {
+const Otp = () => {
 
     const router = useRouter()
 
@@ -54,4 +54,4 @@ const ForgotPassword = () => {
     )
 }
 
-export default ForgotPassword
+export default Otp

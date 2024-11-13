@@ -1,14 +1,13 @@
-import { View, Text, Image, Animated, ScrollView } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import Button from '../../components/organisms/Button'
 import { useRouter } from 'expo-router'
-import UseFormHandler from '../../hooks/useFormHandler'
 import { useDispatch } from 'react-redux'
 import { updateAppState } from '../../Store/reducers/AppDefault'
 import { TouchableOpacity } from 'react-native'
 import PrefernceChip from '../../components/organisms/PrefernceChip'
 
-const Location = () => {
+const Preference = () => {
 
     const [processing, setProcessing] = useState(false)
     const [err, setErr] = useState("")
@@ -77,4 +76,4 @@ const Location = () => {
     )
 }
 
-export default Location
+export default Preference
