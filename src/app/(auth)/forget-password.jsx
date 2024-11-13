@@ -21,8 +21,7 @@ const ForgotPassword = () => {
         },
 
         onSubmit: async (value) => {
-            console.log(value);
-          
+            router.push("otp")
         }
     })
 

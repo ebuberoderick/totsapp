@@ -1,57 +1,96 @@
-import { View, Text, Animated } from 'react-native'
-import React from 'react'
-import AppInput from '../../components/organisms/AppInput'
-import Feather from 'react-native-vector-icons/Feather'
+import { View, Text, Animated, Image, Platform, StyleSheet } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
 import FontAwesome from "react-native-vector-icons/FontAwesome"
 import Button from '../../components/organisms/Button'
 import { useRouter } from 'expo-router'
 import UseFormHandler from '../../hooks/useFormHandler'
 import { TouchableOpacity } from 'react-native'
+import { OTPTextInput } from '@sectiontn/otp-input'
 
 const Otp = () => {
 
     const router = useRouter()
+    const [counter, setCounter] = useState(60);
+    const OTPRef = useRef(null);
 
     const formHandler = UseFormHandler({
         required: {
-            email: 'Please Enter Your Email',
+            otp: 'Please Enter Your Email',
         },
         initialValues: {
-            email: ''
+            otp: ''
         },
 
         onSubmit: async (value) => {
-            console.log(value);
-          
+            if (value.otp.length === 4) {
+                router.replace("new-password")
+            }
         }
     })
 
+    useEffect(() => {
+        counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
+    }, [counter]);
 
 
     return (
-        <View className="flex-1 bg-white pb-16 gap-3 justify-center">
-            <View className="flex-grow justify-center">
-                <View className="absolute" style={{top:50,left:12}}>
-                    <TouchableOpacity onPress={() => router.back()} style={{height:40,width:40}} className="items-center justify-center border border-gray-300 rounded-full">
-                        <FontAwesome name="angle-left" size={30} style={{position:'relative',right:1}} />
-                    </TouchableOpacity>
-                </View>
-                <View>
-                    <Animated.Image source={require("../../assets/images/keypadlock.png")} className="w-80 mx-auto relative h-96" />
-                </View>
+        <View className="flex-1 justify-center bg-white pt-36 gap-3">
+            <View className="absolute" style={{ top: 50, left: 12 }}>
+                <TouchableOpacity onPress={() => router.back()} style={{ height: 40, width: 40 }} className="items-center justify-center border border-gray-300 rounded-full">
+                    <FontAwesome name="angle-left" size={30} style={{ position: 'relative', right: 1 }} />
+                </TouchableOpacity>
             </View>
-            <View className="gap-7 px-3">
-                <Text className="text-3xl font-extrabold">Forgot password?</Text>
-                <Text className="">Don’t worry! Please enter your registered email address below for reset code.</Text>
-                <View className="gap-5 pb-9">
-                    <AppInput error={formHandler.error?.email} onChange={e => formHandler.value.email = e} icon={<Feather name="mail" size={20} color={"#9ca3af"} />} placeholder={"Enter Email"} />
+            <View style={{ height: "80%" }} className="">
+                <View className="">
+                    <Image source={require("../../assets/images/keypadlocksmall.png")} className="mx-auto" />
                 </View>
-                <View className="gap-4">
-                    <Button processing={formHandler.proccessing} text="continue" onPress={() => formHandler.submit()} />
+                <View className="gap-7 px-3">
+                    <Text className="text-center text-xl">4 digit code sent to besdfsn****@gmail.com.</Text>
+                    <View style={{width:"70%"}} className="mx-auto">
+                        <OTPTextInput
+                            ref={OTPRef}
+                            inputCount={4}
+                            tintColor={"#2877F2"}
+                            offTintColor={"#e2e8f0"}
+                            onTextChangeHandler={(pin) => {
+                                formHandler.value.otp = pin;
+                            }}
+                            containerStyle={OTPStyles.container}
+                            textInputStyle={OTPStyles.textInput}
+                            editable={true}
+                            autoFocus={true}
+                            keyboardType={Platform.OS === 'ios' ? 'number-pad' : 'numeric'}
+                        />
+                    </View>
+                    <Text className="text-center">Didn’t receive the code? Resend in {counter} seconds.</Text>
+                    <View className="gap-4">
+                        <Button processing={formHandler.proccessing} text="continue" onPress={() => formHandler.submit()} />
+                    </View>
                 </View>
             </View>
         </View>
     )
 }
+
+
+const OTPStyles = StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      gap:6
+    },
+    textInput: {
+      height: 56,
+      width: 56,
+      borderBottomWidth:1,
+      borderWidth: 1,
+      margin: 1,
+      borderRadius:5,
+      textAlign: 'center',
+      fontSize: 22,
+      fontWeight: '500',
+      color: '#000000',
+    },
+  });
 
 export default Otp
