@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const x = {
     location: "",
+    getStarted:false
 }
 export const appDefaultSlice = createSlice({
     name: "appDefault",

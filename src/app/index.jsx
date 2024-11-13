@@ -12,15 +12,20 @@ const index = () => {
   const isAuthenticated = Session(user);
   useEffect(() => {
     setTimeout(() => {
-      if (appState.location === "") {
-        if (isAuthenticated.status === "authenticated") {
-          router.replace("/(screen)")
+      if (appState?.getStarted) {
+        if (appState.location === "") {
+          if (isAuthenticated.status === "authenticated") {
+            router.replace("/(screen)")
+          } else {
+            router.replace("/(auth)/login")
+          }
         } else {
-          router.replace("/(auth)/login")
+          router.replace(appState.location)
         }
-      } else {
-        router.replace(appState.location)
+      }else{
+        router.replace("/(auth)/getStarted")
       }
+
     }, 3000);
   }, [])
   return (

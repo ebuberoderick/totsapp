@@ -10,7 +10,7 @@ const AppInput = ({ placeholder, icon, type, error, onChange }) => {
 
     return (
         <View>
-            <View className={`border flex-row gap-x-1 items-center px-2 ${error ? "border-danger" : "border-gray-300"} rounded-lg`}>
+            <View className={`border flex-row gap-x-1 items-center px-2 ${error ? "border-danger" : "border-gray-300 dark:border-gray-700"} rounded-lg`}>
                 {icon}
                 <TextInput
                     placeholder={placeholder}

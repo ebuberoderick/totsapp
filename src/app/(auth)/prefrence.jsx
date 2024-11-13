@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, ScrollView, Image } from 'react-native'
 import React, { useState } from 'react'
 import Button from '../../components/organisms/Button'
 import { useRouter } from 'expo-router'
@@ -33,7 +33,6 @@ const Preference = () => {
         }
     }
 
-
     const submitPrefrence = async () => {
         setProcessing(true)
         setErr("")
@@ -43,19 +42,26 @@ const Preference = () => {
             setErr("Please Select at least 3 prefrence")
         }
         setProcessing(false)
-
     }
 
     return (
         <View className="flex-1 bg-white pb-16 pt-9 gap-3 justify-center">
-            <View className="flex-grow pt-6 px-4">
+            <View className="flex-grow px-4" style={{paddingTop:"10%"}}>
                 <View className="items-end">
                     <TouchableOpacity onPress={() => move()}><Text>Maybe Later</Text></TouchableOpacity>
                 </View>
-                <View></View>
+                <View style={{ position: 'relative', top: 70, height: "58%", gap: 10 }}>
+                    <View className="rounded-full" style={{ width: "70%", height: "120%", marginHorizontal: "auto" }}>
+                        <Image source={require("../../assets/images/prefrence.png")} className="mx-auto w-full h-full" />
+                    </View>
+                    <View>
+                        <Text className="text-center font-bold text-3xl"> Hi!👋 Janifer</Text>
+                        <Text className="text-center">benjamin@gmail.com</Text>
+                    </View>
+                </View>
             </View>
             <View className="gap-7 px-3">
-                <View className="relative top-5">
+                <View className="relative" style={{ top: 30 }}>
                     <Text>Preference</Text>
                     <Text className="text-danger text-sm">{err}</Text>
                 </View>
