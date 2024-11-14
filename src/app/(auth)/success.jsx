@@ -5,9 +5,7 @@ import Button from '../../components/organisms/Button'
 import { useRouter } from 'expo-router'
 
 const ForgotPassword = () => {
-
     const router = useRouter()
-
     return (
         <View className="flex-1 bg-white pb-16 gap-3 justify-center">
             <View className="flex-grow items-center justify-center">
@@ -19,7 +17,7 @@ const ForgotPassword = () => {
             </View>
             <View className="gap-7 px-3">
                 <View className="gap-4">
-                    <Button text="continue to app" onPress={() => router.replace("/(screen)/")} />
+                    <Button text="continue to app" onPress={() => router.replace("/(auth)/login")} />
                 </View>
             </View>
         </View>

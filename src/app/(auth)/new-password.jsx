@@ -4,27 +4,40 @@ import AppInput from '../../components/organisms/AppInput'
 import Ionicons from "react-native-vector-icons/Ionicons"
 import FontAwesome from "react-native-vector-icons/FontAwesome"
 import Button from '../../components/organisms/Button'
-import { useRouter } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import UseFormHandler from '../../hooks/useFormHandler'
 import { TouchableOpacity } from 'react-native'
+import { AppNewPassword } from '../../services/authService'
+import { SignInAuth } from '../../hooks/Auth'
+import { useDispatch } from 'react-redux'
 
 const ForgotPassword = () => {
 
     const router = useRouter()
+    const URL = useLocalSearchParams()
+    const dispatch = useDispatch()
 
     const formHandler = UseFormHandler({
         required: {
-            password: 'Please Enter Your Password',
+            new_password: 'Please Enter Your Password',
             cpassword: 'Please Enter Your Password',
         },
         initialValues: {
-            password: '',
+            new_password: '',
             cpassword: '',
+            email: URL.email
         },
 
         onSubmit: async (value) => {
-            if (value.password === value.cpassword) {
-                router.replace("success")
+            if (value.new_password === value.cpassword) {
+                if (value.new_password.length > 7) {
+                    const { status, data } = await AppNewPassword(value).catch(err => console.log(err))
+                    if (status) {
+                        router.replace("success")
+                    }
+                } else {
+                    formHandler.setError((prevState) => ({ ...prevState, new_password: 'Password length should be at least 8 charaters' }))
+                }
             } else {
                 formHandler.setError((prevState) => ({ ...prevState, cpassword: 'Password Mis-match' }))
             }
@@ -42,14 +55,14 @@ const ForgotPassword = () => {
                     </TouchableOpacity>
                 </View>
                 <View className="">
-                    <Animated.Image source={require("../../assets/images/successkey.png")} style={{width:"90%"}} className="mx-auto relative h-auto" />
+                    <Animated.Image source={require("../../assets/images/successkey.png")} style={{ width: "90%" }} className="mx-auto relative h-auto" />
                 </View>
             </View>
             <View className="gap-7 px-3">
                 <Text className="text-2xl font-extrabold">Please enter your new password</Text>
                 <Text className="">Don’t worry! Please enter your registered email address below for reset code.</Text>
                 <View className="gap-5 pb-9">
-                    <AppInput error={formHandler.error?.password} onChange={e => formHandler.value.password = e} icon={<Ionicons name="lock-open-outline" size={25} color={"#9ca3af"} />} placeholder={"Enter New Password"} type={"password"} />
+                    <AppInput error={formHandler.error?.new_password} onChange={e => formHandler.value.new_password = e} icon={<Ionicons name="lock-open-outline" size={25} color={"#9ca3af"} />} placeholder={"Enter New Password"} type={"password"} />
                     <AppInput error={formHandler.error?.cpassword} onChange={e => formHandler.value.cpassword = e} icon={<Ionicons name="lock-open-outline" size={25} color={"#9ca3af"} />} placeholder={"Confirm New Password"} type={"password"} />
                 </View>
                 <View className="gap-4">

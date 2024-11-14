@@ -27,7 +27,6 @@ const Otp = () => {
             if (value.otp.length === 4) {
                 const { status, data } = await AppVerifyOtp(value).catch(err => console.log(err))
                 if (status) {
-                    console.log(data);
                     router.replace(`new-password?email=${value?.email}`)
                 } else {
                     formHandler.setError((prevState) => ({ ...prevState, otp: data.message }))
