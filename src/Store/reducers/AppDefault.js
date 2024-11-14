@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const x = {
     location: "",
-    getStarted:false
+    getStarted: false
 }
 export const appDefaultSlice = createSlice({
     name: "appDefault",
@@ -13,13 +13,10 @@ export const appDefaultSlice = createSlice({
             for (const key in action.payload) {
                 state[key] = action.payload[key]
             }
-        },
-        resetAppState: (state, action) => {
-            state = {}
         }
     },
 });
 
-export const { updateAppState, resetAppState } = appDefaultSlice.actions;
+export const { updateAppState } = appDefaultSlice.actions;
 
 export default appDefaultSlice.reducer;

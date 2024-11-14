@@ -2,8 +2,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 export const API_BASE_URL = process.env.EXPO_PUBLIC_BASE_API_URL || "";
-export const TOKEN =  `Bearer ${AsyncStorage.getItem("APPTOKEN")}`
-
+let TOKEN = '';
+const getToken = async () => {
+  const res = await AsyncStorage.getItem("APPTOKEN");
+  if (!res) {
+    return null;
+  }
+  TOKEN = `Bearer ${res}`;
+  return TOKEN;
+};
 
 const timeoutConfig = {
   timeout: 30000,
@@ -19,9 +26,9 @@ export const apiWithOutAuth = axios.create({
     Accept: "application/json",
     "Content-Type": "application/json",
   },
-  onUploadProgress: progressEvent => console.log(progressEvent.loaded),
   ...timeoutConfig,
 });
+
 
 export const apiWithAuth = axios.create({
   baseURL: API_BASE_URL,
@@ -31,10 +38,23 @@ export const apiWithAuth = axios.create({
     'Pragma': 'no-cache',
     Accept: "application/json",
     "Content-Type": "application/json",
-    Authorization: TOKEN,
   },
   ...timeoutConfig,
 });
+
+
+apiWithAuth.interceptors.request.use(
+  async (config) => {
+    const token = await getToken(); 
+    if (token) {
+      config.headers['Authorization'] = token;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export const getApiResponse = (data) => {
   return {
@@ -45,7 +65,7 @@ export const getApiResponse = (data) => {
 
 export const getErrorResponse = (error) => {
   if (error.response.status === 401) {
-    
+
   }
   return {
     status: false,

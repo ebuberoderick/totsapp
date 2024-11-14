@@ -22,8 +22,8 @@ function Content() {
   const dispatch = useDispatch()
   const router = useRouter()
 
-  const out = () => {
-    SignOut(dispatch)
+  const out = async () => {
+    await SignOut(dispatch)
     router.replace("/(auth)/login")
   }
 

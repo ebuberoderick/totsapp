@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { addData } from '../Store/reducers/UsersReducer';
+import { updateAppState } from '../Store/reducers/AppDefault';
 
 export function SignInAuth(data, dispatch) {
   dispatch(addData(data?.data));
@@ -7,8 +8,12 @@ export function SignInAuth(data, dispatch) {
 }
 
 
-export function SignOut(dispatch) {
+export async function  SignOut(dispatch) {
   dispatch(addData({}))
+  dispatch(updateAppState({
+    location: "",
+    getStarted: false
+}))
   AsyncStorage.removeItem("APPTOKEN")
 }
 
