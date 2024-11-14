@@ -7,6 +7,7 @@ import Button from '../../components/organisms/Button'
 import { useRouter } from 'expo-router'
 import UseFormHandler from '../../hooks/useFormHandler'
 import { TouchableOpacity } from 'react-native'
+import { Appforgotten } from '../../services/authService'
 
 const ForgotPassword = () => {
 
@@ -19,9 +20,13 @@ const ForgotPassword = () => {
         initialValues: {
             email: ''
         },
-
         onSubmit: async (value) => {
-            router.push("otp")
+            const { status, data } = await Appforgotten(value).catch(err => console.log(err))
+            if (status) {
+                router.push(`otp?email=${value?.email}`)
+            } else {
+                formHandler.setError((prevState) => ({ ...prevState, email: data.message }))
+            }
         }
     })
 
@@ -30,9 +35,9 @@ const ForgotPassword = () => {
     return (
         <View className="flex-1 bg-white pb-16 gap-3 justify-center">
             <View className="flex-grow justify-center">
-                <View className="absolute" style={{top:50,left:12}}>
-                    <TouchableOpacity onPress={() => router.back()} style={{height:40,width:40}} className="items-center justify-center border border-gray-300 rounded-full">
-                        <FontAwesome name="angle-left" size={30} style={{position:'relative',right:1}} />
+                <View className="absolute" style={{ top: 50, left: 12 }}>
+                    <TouchableOpacity onPress={() => router.back()} style={{ height: 40, width: 40 }} className="items-center justify-center border border-gray-300 rounded-full">
+                        <FontAwesome name="angle-left" size={30} style={{ position: 'relative', right: 1 }} />
                     </TouchableOpacity>
                 </View>
                 <View>

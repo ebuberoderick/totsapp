@@ -2,36 +2,44 @@ import { View, Text, Animated, Image, Platform, StyleSheet } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import FontAwesome from "react-native-vector-icons/FontAwesome"
 import Button from '../../components/organisms/Button'
-import { useRouter } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import UseFormHandler from '../../hooks/useFormHandler'
 import { TouchableOpacity } from 'react-native'
 import { OTPTextInput } from '@sectiontn/otp-input'
+import { AppVerifyOtp } from '../../services/authService'
 
 const Otp = () => {
 
     const router = useRouter()
     const [counter, setCounter] = useState(60);
     const OTPRef = useRef(null);
+    const URL = useLocalSearchParams()
 
     const formHandler = UseFormHandler({
         required: {
             otp: 'Please Enter Your Email',
         },
         initialValues: {
-            otp: ''
+            otp: '',
+            email: URL.email
         },
-
         onSubmit: async (value) => {
             if (value.otp.length === 4) {
-                router.replace("new-password")
+                const { status, data } = await AppVerifyOtp(value).catch(err => console.log(err))
+                if (status) {
+                    console.log(data);
+                    router.replace(`new-password?email=${value?.email}`)
+                } else {
+                    formHandler.setError((prevState) => ({ ...prevState, otp: data.message }))
+                }
             }
+            formHandler.setError((prevState) => ({ ...prevState, otp: "OTP is not complete" }))
         }
     })
 
     useEffect(() => {
         counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
     }, [counter]);
-
 
     return (
         <View className="flex-1 justify-center bg-white pt-36 gap-3">
@@ -45,8 +53,8 @@ const Otp = () => {
                     <Image source={require("../../assets/images/keypadlocksmall.png")} className="mx-auto" />
                 </View>
                 <View className="gap-7 px-3">
-                    <Text className="text-center text-xl">4 digit code sent to besdfsn****@gmail.com.</Text>
-                    <View style={{width:"70%"}} className="mx-auto">
+                    <Text className="text-center text-xl">4 digit code sent to {URL.email.split("@")[0].substring(0, 5)}*****@{URL.email.split("@")[1]}</Text>
+                    <View style={{ width: "70%" }} className="mx-auto relative">
                         <OTPTextInput
                             ref={OTPRef}
                             inputCount={4}
@@ -61,6 +69,7 @@ const Otp = () => {
                             autoFocus={true}
                             keyboardType={Platform.OS === 'ios' ? 'number-pad' : 'numeric'}
                         />
+                        <Text className="text-danger text-xs absolute w-full text-center -bottom-5">{formHandler.error?.otp}</Text>
                     </View>
                     <Text className="text-center">Didn’t receive the code? Resend in {counter} seconds.</Text>
                     <View className="gap-4">
@@ -75,22 +84,22 @@ const Otp = () => {
 
 const OTPStyles = StyleSheet.create({
     container: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      gap:6
+        flexDirection: 'row',
+        justifyContent: 'center',
+        gap: 6
     },
     textInput: {
-      height: 56,
-      width: 56,
-      borderBottomWidth:1,
-      borderWidth: 1,
-      margin: 1,
-      borderRadius:5,
-      textAlign: 'center',
-      fontSize: 22,
-      fontWeight: '500',
-      color: '#000000',
+        height: 56,
+        width: 56,
+        borderBottomWidth: 1,
+        borderWidth: 1,
+        margin: 1,
+        borderRadius: 5,
+        textAlign: 'center',
+        fontSize: 22,
+        fontWeight: '500',
+        color: '#000000',
     },
-  });
+});
 
 export default Otp
