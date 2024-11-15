@@ -40,21 +40,25 @@ const Register = () => {
             if (value.password === value.cpassword) {
                 if (isSelected) {
                     const { status, data } = await Appregister(value).catch(err => console.log(err))
-                    if (status) {
-                        SignInAuth(data, dispatch);
-                        dispatch(updateAppState({ location: "/(auth)/location" }))
-                        router.replace("/(auth)/location")
+                    if (data.exception) {
+                        formHandler.setError((prevState) => ({ ...prevState, email: "This Email does not exist, Please reconfirm " }))
                     } else {
-
-                        let error = {}
-                        for (const key in data.data) {
-                            error = { [key]: `${data.data[key][0]}` }
-                        }
-                        formHandler.setError((prevState) => error)
-                        if (data.message === "Username not available") {
-                            formHandler.setError((prevState) => ({ ...prevState, username: data.message }))
+                        if (status) {
+                            SignInAuth(data, dispatch);
+                            dispatch(updateAppState({ location: "/(auth)/location" }))
+                            router.replace("/(auth)/location")
+                        } else {
+                            let error = {}
+                            for (const key in data.data) {
+                                error = { [key]: `${data.data[key][0]}` }
+                            }
+                            formHandler.setError((prevState) => error)
+                            if (data.message === "Username not available") {
+                                formHandler.setError((prevState) => ({ ...prevState, username: data.message }))
+                            }
                         }
                     }
+
                 } else {
                     formHandler.setError((prevState) => ({ ...prevState, tnc: 'Please accept Term of Service and Privacy Policy' }))
                 }
@@ -64,7 +68,6 @@ const Register = () => {
 
         }
     })
-
 
 
     return (

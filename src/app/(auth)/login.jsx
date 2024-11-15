@@ -43,7 +43,6 @@ const Login = () => {
   })
 
 
-
   return (
     <View className="flex-1 bg-white dark:bg-black pb-16 gap-3 justify-center">
       <View className="flex-grow justify-center">
