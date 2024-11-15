@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
-export const API_BASE_URL = process.env.EXPO_PUBLIC_BASE_API_URL || "";
+export const API_BASE_URL = process.env.EXPO_PUBLIC_BASE_API_URL || "https://tots.literesults.net/api";
 let TOKEN = '';
 const getToken = async () => {
   const res = await AsyncStorage.getItem("APPTOKEN");

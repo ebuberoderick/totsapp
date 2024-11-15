@@ -16,6 +16,14 @@
       ]
     ],
     "name": "totsapp",
-    "slug": "totsapp"
+    "slug": "totsapp",
+    "extra": {
+      "router": {
+        "origin": "https://n"
+      },
+      "eas": {
+        "projectId": "c9bfb44c-845a-4e12-8154-034fa8124e52"
+      }
+    }
   }
 }
