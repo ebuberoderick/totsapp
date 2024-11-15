@@ -47,7 +47,7 @@ const Preference = () => {
     const submitPrefrence = async () => {
         setProcessing(true)
         setErr("")
-        if (list.length > 3) {
+        if (list.length > 2) {
             const { data, status } = await updateUserPrefrence(list)
             if (status) {
                 move()
