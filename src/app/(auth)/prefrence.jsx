@@ -76,7 +76,7 @@ const Preference = () => {
                     </View>
                     <View>
                         <Text className="text-center font-bold text-3xl"> Hi!👋 {user.user.username}</Text>
-                        <Text className="text-center">benjamin@gmail.com</Text>
+                        <Text className="text-center">{user.user.email}</Text>
                     </View>
                 </View>
             </View>

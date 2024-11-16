@@ -100,7 +100,7 @@ const Register = () => {
                 </View>
                 <View className="gap-4">
                     <Button processing={formHandler.proccessing} text="create account" onPress={() => formHandler.submit()} />
-                    <Text className="text-center">Already have an account? <Link href="login" className='text-blue'>Login</Link></Text>
+                    <Text className="text-center text-xl">Already have an account? <Link href="login" className='text-blue'>Login</Link></Text>
                 </View>
             </View>
         </View>

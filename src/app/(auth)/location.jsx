@@ -72,8 +72,6 @@ const Location = () => {
 
         onSubmit: async (value) => {
             const { status, data } = await addLocation(value).catch(err => console.log(err))
-            console.log(data);
-            
             if (status) {
                 dispatch(updateAppState({ location: "/(auth)/prefrence" }))
                 router.replace("/(auth)/prefrence")

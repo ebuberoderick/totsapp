@@ -67,9 +67,9 @@ const Login = () => {
 
           </View>
         </View>
-        <View className="gap-4">
-          <Button processing={formHandler.proccessing} text="create account" onPress={() => formHandler.submit()} />
-          <Text className="text-center dark:text-white">Don’t have an account? <Link href="register" className='text-blue'>Sign up</Link></Text>
+        <View className="gap-4 pb-16">
+          <Button processing={formHandler.proccessing} text="login" onPress={() => formHandler.submit()} />
+          <Text className="text-center dark:text-white text-xl">Don’t have an account? <Link href="register" className='text-blue'>Sign up</Link></Text>
         </View>
       </View>
     </View>
